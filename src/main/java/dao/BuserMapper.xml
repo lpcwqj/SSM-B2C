@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BuserMapper">
+  <resultMap id="BaseResultMap" type="pojo.Buser">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bemail" jdbcType="VARCHAR" property="bemail" />
+    <result column="bpwd" jdbcType="VARCHAR" property="bpwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, bemail, bpwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from buser
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from buser
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Buser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into buser (bemail, bpwd)
+    values (#{bemail,jdbcType=VARCHAR}, #{bpwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Buser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into buser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bemail != null">
+        bemail,
+      </if>
+      <if test="bpwd != null">
+        bpwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bemail != null">
+        #{bemail,jdbcType=VARCHAR},
+      </if>
+      <if test="bpwd != null">
+        #{bpwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Buser">
+    <!--@mbg.generated-->
+    update buser
+    <set>
+      <if test="bemail != null">
+        bemail = #{bemail,jdbcType=VARCHAR},
+      </if>
+      <if test="bpwd != null">
+        bpwd = #{bpwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Buser">
+    <!--@mbg.generated-->
+    update buser
+    set bemail = #{bemail,jdbcType=VARCHAR},
+      bpwd = #{bpwd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findUserList" resultMap="BaseResultMap">
+    select *
+    from buser
+  </select>
+
+    <select id="checkUserByEmail" resultMap="BaseResultMap">
+      select *
+      from buser
+      where bemail = #{email}
+    </select>
+
+  <select id="findAllOrder" resultType="pojo.Orderbase">
+    select o.*
+    from orderbase o
+    left join buser b
+    on o.buser_id = b.id
+    where bemail = #{buserEmail,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectId" resultType="int">
+      select id
+      from buser
+      where bemail = #{email,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

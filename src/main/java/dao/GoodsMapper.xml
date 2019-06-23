@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="pojo.Goods">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="goprice" jdbcType="DOUBLE" property="goprice" />
+    <result column="grprice" jdbcType="DOUBLE" property="grprice" />
+    <result column="gstore" jdbcType="INTEGER" property="gstore" />
+    <result column="gpicture" jdbcType="VARCHAR" property="gpicture" />
+    <result column="goodstype_id" jdbcType="INTEGER" property="goodstypeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, gname, goprice, grprice, gstore, gpicture, goodstype_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Goods" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into goods (gname, goprice, grprice, 
+      gstore, gpicture, goodstype_id
+      )
+    values (#{gname,jdbcType=VARCHAR}, #{goprice,jdbcType=DOUBLE}, #{grprice,jdbcType=DOUBLE}, 
+      #{gstore,jdbcType=INTEGER}, #{gpicture,jdbcType=VARCHAR}, #{goodstypeId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Goods" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        gname,
+      </if>
+      <if test="goprice != null">
+        goprice,
+      </if>
+      <if test="grprice != null">
+        grprice,
+      </if>
+      <if test="gstore != null">
+        gstore,
+      </if>
+      <if test="gpicture != null">
+        gpicture,
+      </if>
+      <if test="goodstypeId != null">
+        goodstype_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="goprice != null">
+        #{goprice,jdbcType=DOUBLE},
+      </if>
+      <if test="grprice != null">
+        #{grprice,jdbcType=DOUBLE},
+      </if>
+      <if test="gstore != null">
+        #{gstore,jdbcType=INTEGER},
+      </if>
+      <if test="gpicture != null">
+        #{gpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeId != null">
+        #{goodstypeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Goods">
+    <!--@mbg.generated-->
+    update goods
+    <set>
+      <if test="gname != null">
+        gname = #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="goprice != null">
+        goprice = #{goprice,jdbcType=DOUBLE},
+      </if>
+      <if test="grprice != null">
+        grprice = #{grprice,jdbcType=DOUBLE},
+      </if>
+      <if test="gstore != null">
+        gstore = #{gstore,jdbcType=INTEGER},
+      </if>
+      <if test="gpicture != null">
+        gpicture = #{gpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeId != null">
+        goodstype_id = #{goodstypeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Goods">
+    <!--@mbg.generated-->
+    update goods
+    set gname = #{gname,jdbcType=VARCHAR},
+      goprice = #{goprice,jdbcType=DOUBLE},
+      grprice = #{grprice,jdbcType=DOUBLE},
+      gstore = #{gstore,jdbcType=INTEGER},
+      gpicture = #{gpicture,jdbcType=VARCHAR},
+      goodstype_id = #{goodstypeId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="findCount" resultType="int">
+      select count(*)
+      from goods
+    </select>
+
+    <select id="findLists" resultMap="BaseResultMap">
+      select *
+      from goods
+      limit #{start},#{pageSize}
+    </select>
+
+  <select id="findtypenameById" resultType="java.lang.String">
+    select typename
+    from goodstype
+    left join goods g
+    on goodstype.id = g.goodstype_id
+    where g.id = #{id}
+  </select>
+
+    <delete id="deleteAGoods">
+      delete
+      from goods
+      where id = #{id}
+    </delete>
+
+    <delete id="deleteGoods">
+      delete from goods
+      where id in
+      <foreach collection="array" item="ids" open="(" separator="," close=")">
+        #{ids}
+      </foreach>
+    </delete>
+
+  <select id="findFocusGoods" resultMap="BaseResultMap">
+    select goods.*
+    from buser,focus,goods
+    where buser.id=focus.buser_id and focus.goods_id=goods.id and buser.bemail=#{buserEmail,jdbcType=VARCHAR}
+  </select>
+
+
+  <resultMap id="OrderDeatil" type="pojo.Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="goprice" jdbcType="DOUBLE" property="goprice" />
+    <result column="grprice" jdbcType="DOUBLE" property="grprice" />
+    <result column="gstore" jdbcType="INTEGER" property="gstore" />
+    <result column="gpicture" jdbcType="VARCHAR" property="gpicture" />
+    <result column="goodstype_id" jdbcType="INTEGER" property="goodstypeId" />
+    <result column="shoppingnum" jdbcType="INTEGER" property="shoppingnum"/>
+  </resultMap>
+  <select id="findOrderDetail" resultMap="OrderDeatil">
+    select g.*,o.shoppingnum
+    from goods g
+    left join orderdetail o
+    on g.id = o.goods_id
+    where o.orderbase_id = #{id}
+  </select>
+
+  <resultMap id="GoodsDetail" type="pojo.Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="goprice" jdbcType="DOUBLE" property="goprice" />
+    <result column="grprice" jdbcType="DOUBLE" property="grprice" />
+    <result column="gstore" jdbcType="INTEGER" property="gstore" />
+    <result column="gpicture" jdbcType="VARCHAR" property="gpicture" />
+    <result column="goodstype_id" jdbcType="INTEGER" property="goodstypeId" />
+    <result column="typename" jdbcType="VARCHAR" property="typename"/>
+  </resultMap>
+  <select id="findGoodsDetail" resultMap="GoodsDetail">
+    select goods.*,g.typename
+    from goods
+    left join goodstype g
+    on goods.goodstype_id = g.id
+    where goods.id = #{id}
+  </select>
+
+
+  <resultMap id="orderPay" type="pojo.Goods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="goprice" jdbcType="DOUBLE" property="goprice" />
+    <result column="grprice" jdbcType="DOUBLE" property="grprice" />
+    <result column="gstore" jdbcType="INTEGER" property="gstore" />
+    <result column="gpicture" jdbcType="VARCHAR" property="gpicture" />
+    <result column="goodstype_id" jdbcType="INTEGER" property="goodstypeId" />
+    <result column="shoppingnum" jdbcType="INTEGER" property="shoppingnum"/>
+    <result column="smallsum" jdbcType="DOUBLE" property="smallsum"/>
+  </resultMap>
+  <select id="selectById" resultMap="orderPay">
+    select * from goods where id = #{goodsId}
+  </select>
+
+    <select id="Search" resultMap="BaseResultMap">
+      select g.*
+      from goods g
+      inner join goodstype g2
+      on g.goodstype_id = g2.id
+      where g2.typename like '%${goodsTypeName}%'
+    </select>
+
+  <select id="selectOrderByShoppingNum" resultMap="OrderDeatil">
+    select g.*
+    from orderdetail o
+    left join goods g
+    on g.id = o.goods_id
+    order by o.shoppingnum desc
+    limit 0 , 10
+  </select>
+
+    <select id="selectPeopleHot" resultMap="BaseResultMap">
+      select g.*,count(*) as count
+      from focus f
+	  left join goods g
+	  on f.goods_id = g.id
+      group by goods_id
+      order by count desc
+      limit 0 , 10
+    </select>
+
+  <select id="findGoodsList" resultMap="BaseResultMap">
+    select *
+    from goods
+    where goodstype_id = #{id}
+  </select>
+
+  <select id="findAllGoods" resultMap="BaseResultMap">
+    select *
+    from goods
+    order by id desc
+    limit 0,15
+  </select>
+
+  <update id="updateGoodsStore">
+    update goods
+    left join orderdetail on orderdetail.goods_id = goods.id
+    left join orderbase on orderbase.id = orderdetail.orderbase_id
+    set goods.gstore = goods.gstore - orderdetail.shoppingnum
+    where orderbase.id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.OrderbaseMapper">
+  <resultMap id="BaseResultMap" type="pojo.Orderbase">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="buser_id" jdbcType="INTEGER" property="buserId" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="orderstate" jdbcType="TIMESTAMP" property="orderstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, buser_id, amount, `status`, orderstate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from orderbase
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from orderbase
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Orderbase" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into orderbase (buser_id, amount, `status`, 
+      orderstate)
+    values (#{buserId,jdbcType=INTEGER}, #{amount,jdbcType=DOUBLE}, #{status,jdbcType=TINYINT}, 
+      #{orderstate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Orderbase" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into orderbase
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buserId != null">
+        buser_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="orderstate != null">
+        orderstate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buserId != null">
+        #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="orderstate != null">
+        #{orderstate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Orderbase">
+    <!--@mbg.generated-->
+    update orderbase
+    <set>
+      <if test="buserId != null">
+        buser_id = #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="orderstate != null">
+        orderstate = #{orderstate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Orderbase">
+    <!--@mbg.generated-->
+    update orderbase
+    set buser_id = #{buserId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DOUBLE},
+      `status` = #{status,jdbcType=TINYINT},
+      orderstate = #{orderstate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="findOrderList" resultMap="BaseResultMap">
+      select ot.id,ot.amount,ot.status,orderstate,bt.bemail,ot.buser_id
+      from orderbase ot,buser bt
+      where ot.buser_id=bt.id
+    </select>
+
+  <update id="updateStatus">
+    update orderbase
+    set status = 1
+    where id = #{id}
+  </update>
+
+    <select id="selectLastId" resultType="int">
+      select max(id)
+      FROM orderbase
+    </select>
+
+    <delete id="deleteCartById">
+      delete c
+      from orderbase o
+      inner join cart c
+      on o.buser_id = c.buser_id
+      where o.id = #{id}
+    </delete>
+</mapper>

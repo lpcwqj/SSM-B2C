@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.GoodstypeMapper">
+  <resultMap id="BaseResultMap" type="pojo.Goodstype">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="typename" jdbcType="VARCHAR" property="typename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, typename
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from goodstype
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from goodstype
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Goodstype" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into goodstype (typename)
+    values (#{typename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Goodstype" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into goodstype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typename != null">
+        typename,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typename != null">
+        #{typename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Goodstype">
+    <!--@mbg.generated-->
+    update goodstype
+    <set>
+      <if test="typename != null">
+        typename = #{typename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Goodstype">
+    <!--@mbg.generated-->
+    update goodstype
+    set typename = #{typename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="findGoodsTypeName" resultMap="BaseResultMap">
+      select *
+      from goodstype
+    </select>
+
+    <select id="findCount" resultType="int">
+      select count(*)
+      from goodstype
+    </select>
+
+  <select id="findLists" resultMap="BaseResultMap">
+    select *
+    from goodstype
+    limit #{start} , #{pageSize}
+  </select>
+
+  <select id="selectGoodsType" resultMap="BaseResultMap">
+    select * from goodstype
+  </select>
+
+
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.OrderdetailMapper">
+  <resultMap id="BaseResultMap" type="pojo.Orderdetail">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="orderbase_id" jdbcType="INTEGER" property="orderbaseId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="shoppingnum" jdbcType="INTEGER" property="shoppingnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, orderbase_id, goods_id, shoppingnum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from orderdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Orderdetail" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into orderdetail (orderbase_id, goods_id, shoppingnum
+      )
+    values (#{orderbaseId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{shoppingnum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Orderdetail" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into orderdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderbaseId != null">
+        orderbase_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="shoppingnum != null">
+        shoppingnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderbaseId != null">
+        #{orderbaseId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingnum != null">
+        #{shoppingnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Orderdetail">
+    <!--@mbg.generated-->
+    update orderdetail
+    <set>
+      <if test="orderbaseId != null">
+        orderbase_id = #{orderbaseId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingnum != null">
+        shoppingnum = #{shoppingnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Orderdetail">
+    <!--@mbg.generated-->
+    update orderdetail
+    set orderbase_id = #{orderbaseId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      shoppingnum = #{shoppingnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="select" resultMap="BaseResultMap">
+      select c.shoppingnum,c.goods_id,o.id as orderbase_id
+      from orderbase o
+      inner JOIN cart c
+      on o.buser_id = c.buser_id
+      where o.id = #{last_id}
+    </select>
+
+
+</mapper>

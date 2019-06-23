@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CartMapper">
+  <resultMap id="BaseResultMap" type="pojo.Cart">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="buser_id" jdbcType="INTEGER" property="buserId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="shoppingnum" jdbcType="INTEGER" property="shoppingnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, buser_id, goods_id, shoppingnum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from cart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from cart
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Cart" useGeneratedKeys="true">
+    insert into cart (buser_id, goods_id, shoppingnum
+      )
+    values (#{buserId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{shoppingnum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Cart" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buserId != null">
+        buser_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="shoppingnum != null">
+        shoppingnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buserId != null">
+        #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingnum != null">
+        #{shoppingnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Cart">
+    <!--@mbg.generated-->
+    update cart
+    <set>
+      <if test="buserId != null">
+        buser_id = #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingnum != null">
+        shoppingnum = #{shoppingnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Cart">
+    <!--@mbg.generated-->
+    update cart
+    set buser_id = #{buserId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      shoppingnum = #{shoppingnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <delete id="deleteById">
+      delete from cart
+      where goods_id = #{id}
+    </delete>
+
+  <select id="selectCart" resultType="pojo.Goods">
+    select c2.shoppingnum,g.*
+    from cart c2
+    left join goods g
+    on g.id = c2.goods_id
+  </select>
+
+  <delete id="deleteCart">
+    delete from cart
+  </delete>
+</mapper>

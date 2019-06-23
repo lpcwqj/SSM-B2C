@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.FocusMapper">
+  <resultMap id="BaseResultMap" type="pojo.Focus">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="buser_id" jdbcType="INTEGER" property="buserId" />
+    <result column="focustime" jdbcType="TIMESTAMP" property="focustime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, goods_id, buser_id, focustime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from focus
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from focus
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="pojo.Focus" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into focus (goods_id, buser_id, focustime
+      )
+    values (#{goodsId,jdbcType=INTEGER}, #{buserId,jdbcType=INTEGER}, #{focustime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="pojo.Focus" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into focus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="buserId != null">
+        buser_id,
+      </if>
+      <if test="focustime != null">
+        focustime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="buserId != null">
+        #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="focustime != null">
+        #{focustime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Focus">
+    <!--@mbg.generated-->
+    update focus
+    <set>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="buserId != null">
+        buser_id = #{buserId,jdbcType=INTEGER},
+      </if>
+      <if test="focustime != null">
+        focustime = #{focustime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Focus">
+    <!--@mbg.generated-->
+    update focus
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      buser_id = #{buserId,jdbcType=INTEGER},
+      focustime = #{focustime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
