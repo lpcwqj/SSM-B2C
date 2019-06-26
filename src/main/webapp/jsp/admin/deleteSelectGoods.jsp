@@ -106,9 +106,9 @@
 						<a href="/adminGoods/selectGoods?currentPage=${allGoods.totalPage}&act=deleteSelect">尾页</a>
 					</c:if>
 				</td>
-			</tr> 
+			</tr>
 			<tr>
-				<td colspan="6">${msg }</td>
+				<td colspan="6"><b style="color: red;font-size: 16px"> ${message}</b></td>
 			</tr>
 		</table>
 		</form>

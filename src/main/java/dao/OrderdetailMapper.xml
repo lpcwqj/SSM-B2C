@@ -90,5 +90,20 @@
       where o.id = #{last_id}
     </select>
 
+    <select id="findIfHaveGoods" resultMap="BaseResultMap">
+      select *
+      from orderdetail
+      where goods_id = #{id}
+    </select>
+
+    <select id="findIfHaveGoodsByIds" resultMap="BaseResultMap">
+      select *
+      from orderdetail
+      <where>
+        <foreach collection="array" item="ids" separator="," open="goods_id in(" close=")">
+          #{ids}
+        </foreach>
+      </where>
+    </select>
 
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pojo.Notice;
 import service.admin.AdminNoticeService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class AdminNoticeController {
     @RequestMapping("/addNotice")
     public String addNotice(@ModelAttribute("notice")Notice notice)
     {
+        notice.setNtime(new Date());
         adminNoticeService.addNotice(notice);
         return "redirect:/adminNotice/toAddNotice";
     }

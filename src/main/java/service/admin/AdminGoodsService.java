@@ -3,6 +3,7 @@ package service.admin;
 
 import pojo.Goods;
 import pojo.Goodstype;
+import pojo.Orderdetail;
 import utils.PageUtils;
 import java.util.List;
 
@@ -62,4 +63,18 @@ public interface AdminGoodsService {
      * @param goods 前台传来的表单数据 封装为goods对象
      */
     void updateGoods(Goods goods);
+
+    /**
+     * 查询订单中是否有对应的该商品 如果有 则无法删除该商品
+     * @param id
+     * @return
+     */
+    Orderdetail findIfHaveGoods(int id);
+
+    /**
+     * 批量删除时 查询订单中是否有对应的该商品 如果有 则无法删除该商品
+     * @param ids
+     * @return
+     */
+    List<Orderdetail> findIfHaveGoodsByIds(Integer[] ids);
 }

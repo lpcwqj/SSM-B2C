@@ -32,4 +32,17 @@ public interface OrderdetailMapper {
      */
     List<Orderdetail> select(@Param("last_id") int last_id);
 
+    /**
+     * 查询订单中是否有要删除的商品
+     * @param id
+     * @return
+     */
+    Orderdetail findIfHaveGoods(@Param("id") int id);
+
+    /**
+     * 批量删除时 查询订单中是否有要删除的商品
+     * @param ids
+     * @return
+     */
+    List<Orderdetail> findIfHaveGoodsByIds(Integer[] ids);
 }

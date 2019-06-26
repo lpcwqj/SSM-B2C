@@ -25,13 +25,7 @@
     <!-- 注解驱动 -->
     <mvc:annotation-driven conversion-service="conversionService"/>
     <!--配置日期格式转换-->
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <list>
-                <bean class="conversion.DateConversion"/>
-            </list>
-        </property>
-    </bean>
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
 
     <!-- 文件上传，id必须设置为multipartResolver -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

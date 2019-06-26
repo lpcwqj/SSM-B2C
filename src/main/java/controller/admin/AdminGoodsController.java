@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import pojo.Goods;
 import pojo.Goodstype;
+import pojo.Orderdetail;
 import service.admin.AdminGoodsService;
 import utils.PageUtils;
 
@@ -107,20 +108,38 @@ public class AdminGoodsController {
     }
     /**
      * 删除一个商品
+     *  要注意 如果某个订单中存在该商品 则不允许删除该商品
      */
     @RequestMapping("/deleteAGoods")
-    public String deleteAGoods(@RequestParam("id") int id)
+    public String deleteAGoods(@RequestParam("id") int id,
+                               Model model)
     {
-        adminGoodsService.deleteAGoods(id);
+        Orderdetail orderdetails = adminGoodsService.findIfHaveGoods(id);
+        if (orderdetails!=null){
+            model.addAttribute("message","商品有关联，不允许删除");
+            return "admin/deleteSelectGoods";
+        }
+        else{
+            adminGoodsService.deleteAGoods(id);
+        }
         return "redirect:/adminGoods/selectGoods";
     }
     /**
      * 批量删除
+     *  要注意 如果某个订单中存在该商品 则不允许删除该商品
      */
     @RequestMapping("/deleteGoods")
-    public String deleteGoods(Integer[] ids)
+    public String deleteGoods(Integer[] ids,
+                              Model model)
     {
-        adminGoodsService.deleteGoods(ids);
+        List<Orderdetail> orderdetails = adminGoodsService.findIfHaveGoodsByIds(ids);
+        if (orderdetails!=null){
+            model.addAttribute("message","商品有关联，不允许删除");
+            return "admin/deleteSelectGoods";
+        }
+        else{
+            adminGoodsService.deleteGoods(ids);
+        }
         return "redirect:/adminGoods/selectGoods";
     }
 }

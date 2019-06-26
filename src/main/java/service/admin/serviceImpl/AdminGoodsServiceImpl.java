@@ -2,11 +2,13 @@ package service.admin.serviceImpl;
 
 import dao.GoodsMapper;
 import dao.GoodstypeMapper;
+import dao.OrderdetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pojo.Goods;
 import pojo.Goodstype;
+import pojo.Orderdetail;
 import service.admin.AdminGoodsService;
 import utils.PageUtils;
 import java.util.List;
@@ -22,6 +24,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
     private GoodsMapper goodsMapper;
     @Autowired
     private GoodstypeMapper goodstypeMapper;
+    @Autowired
+    private OrderdetailMapper orderdetailMapper;
 
     @Override
     public PageUtils<Goods> selectGoods(int currentPage) {
@@ -79,5 +83,15 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
     @Override
     public void updateGoods(Goods goods) {
         goodsMapper.updateByPrimaryKeySelective(goods);
+    }
+
+    @Override
+    public Orderdetail findIfHaveGoods(int id) {
+        return orderdetailMapper.findIfHaveGoods(id);
+    }
+
+    @Override
+    public List<Orderdetail> findIfHaveGoodsByIds(Integer[] ids) {
+        return orderdetailMapper.findIfHaveGoodsByIds(ids);
     }
 }
