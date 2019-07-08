@@ -31,12 +31,16 @@ public class CartController {
     private FocusService focusService;
 
     /**
-     * 查询显示购物车的全部信息
+     * 查询显示该用户的购物车的全部信息
      */
     @RequestMapping("/selectCart")
-    public String selectCart(Model model)
+    public String selectCart(Model model,
+                             HttpSession session)
     {
-        List<Goods> list = cartService.selectCart();
+        //查询用户id
+        String email =(String) session.getAttribute("buser");
+        int id = buserMapper.selectId(email);
+        List<Goods> list = cartService.selectCart(id);
         model.addAttribute("cartlist",list);
         double total = 0;
         for (Goods goods:list) {
@@ -71,34 +75,48 @@ public class CartController {
     }
 
     /**
-     * 删除购物车中的指定商品
-     * 根据商品id
+     * 删除该用户的购物车中的指定商品
+     * 根据商品id 和 用户id
      */
     @RequestMapping("/deleteAgoods")
-    public String deleteAgoods(@RequestParam("id")int id)
+    public String deleteAgoods(@RequestParam("id")int id,
+                               HttpSession session)
     {
-        cartService.deleteById(id);
+        //查询用户id
+        String email =(String) session.getAttribute("buser");
+        int user_id = buserMapper.selectId(email);
+
+        cartService.deleteById(id,user_id);
         return "redirect:/cart/selectCart";
     }
 
     /**
-     * 清空购物车
+     * 清空该用户的购物车
      */
     @RequestMapping("/clear")
-    public String clear()
+    public String clear(HttpSession session)
     {
-        cartService.deleteCart();
+        //查询用户id
+        String email =(String) session.getAttribute("buser");
+        int id = buserMapper.selectId(email);
+
+        cartService.deleteCart(id);
         return "redirect:/cart/selectCart";
     }
 
     /**
      * 点击'去结算' 跳转到确定订单页面
-     * 将购物车里的商品信息 显示到确认订单信息页面
+     * 将该用户的购物车里的商品信息 显示到确认订单信息页面
      */
     @RequestMapping("/orderConfirm")
-    public String orderConfirm(Model model)
+    public String orderConfirm(Model model,
+                               HttpSession session)
     {
-        List<Goods> list = cartService.selectCart();
+        //查询用户id
+        String email =(String) session.getAttribute("buser");
+        int id = buserMapper.selectId(email);
+
+        List<Goods> list = cartService.selectCart(id);
         model.addAttribute("cartlist",list);
         double total = 0;
         for (Goods goods:list) {

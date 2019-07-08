@@ -37,18 +37,23 @@ public class beforeController {
         //查询商品类型
         List<Goodstype> list = goodstypeMapper.selectGoodsType();
         session.setAttribute("goodsType",list);
+
         //查询销售排行  orderdetail表中按shoppingnum的大小排列
         List<Goods> list1 = userService.selectOrderByShoppingNum();
         model.addAttribute("salelist",list1);
+
         //查询人气排行  focus表中按goods_id出现的次数排列
         List<Goods> list2 = userService.selectPeopleHot();
         model.addAttribute("focuslist",list2);
+
         //查询公告
         List<Notice> list3 = noticeMapper.findAllNotice();
         model.addAttribute("noticelist",list3);
+
         //查询最新商品  根据id降序查询  只显示15个
         List<Goods> list4 = userService.selectAllGoods();
         model.addAttribute("lastedlist",list4);
+
         return "before/index";
     }
 }

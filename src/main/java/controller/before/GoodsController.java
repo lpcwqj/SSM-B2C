@@ -15,7 +15,7 @@ import java.util.List;
  * @Date 2019/6/19
  */
 @Controller
-@RequestMapping("/goods")
+@RequestMapping("/goods") //窄化路径
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;

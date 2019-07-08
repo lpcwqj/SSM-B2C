@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2019/6/17
  */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin") //窄化路径
 public class AdminLoginController {
     @Autowired
     private AdminLoginService adminLoginService;
@@ -50,6 +50,7 @@ public class AdminLoginController {
         }
         //存入session域，用于一次会话
         request.getSession().setAttribute("adminname",username);
+
         model.addAttribute("aname",username);
         return "admin/main";
     }

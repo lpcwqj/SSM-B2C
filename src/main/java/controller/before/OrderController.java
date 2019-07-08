@@ -29,7 +29,6 @@ public class OrderController {
     /**
      * 根据订单id查询订单详情
      * 商品的详情和购买数量
-     * 接收订单的id
      */
     @RequestMapping("/orderDetail")
     public String orderDetail(@RequestParam("ordersn") int id,
@@ -54,12 +53,12 @@ public class OrderController {
     }
 
     /**
-     * 点击确认提交订单后(需要注意两点：1、2、3)
+     * 点击确认提交订单后(需要注意三点：1、2、3)
      * 1.添加订单数据(订单状态是未支付0)
      * 2.添加订单详情数据 (根据购物车、订单 两表数据进行添加)
      * 3.删除该订单包含的购物车信息
      *
-     * 一个订单包含一条订单信息
+     * 一个订单包含一条订单详情信息
      * 一个订单详情包含购物车中的全部商品信息
      * 一个购物车可以有多条商品
      * 1：N：N

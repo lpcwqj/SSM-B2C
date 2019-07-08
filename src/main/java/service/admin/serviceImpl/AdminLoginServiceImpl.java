@@ -17,6 +17,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     @Override
     public Auser checkUserByUsername(String username) {
+
         return auserMapper.checkUserByUsername(username);
+
     }
 }

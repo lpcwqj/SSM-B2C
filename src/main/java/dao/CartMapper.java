@@ -27,19 +27,21 @@ public interface CartMapper {
     int updateByPrimaryKey(Cart record);
 
     /**
-     * 删除购物车中的指定商品
+     * 删除该用户的购物车中的指定商品
      * @param id    前台传来的id
+     * @param user_id 用户id
      */
-    void deleteById(@Param("id") int id);
+    void deleteById(@Param("id") int id,
+                    @Param("user_id") int user_id);
 
     /**
-     * 查询购物车的信息
+     * 查询该用户的购物车的信息
      * @return
      */
-    List<Goods> selectCart();
+    List<Goods> selectCart(@Param("id") int id);
 
     /**
-     * 清空购物车
+     * 清空该用户的购物车
      */
-    void deleteCart();
+    void deleteCart(@Param("id") int id);
 }

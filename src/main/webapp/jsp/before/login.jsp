@@ -84,7 +84,7 @@
 		}
 		function validateCode()
 		{
-			var inputCode=document.getElementById("inputCode").value;
+			var inputCode = document.getElementById("inputCode").value;
 			if(inputCode.length <= 0)
 			{
 				alert("请输入验证码！");

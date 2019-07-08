@@ -83,7 +83,7 @@
 
     <delete id="deleteById">
       delete from cart
-      where goods_id = #{id}
+      where goods_id = #{id} and buser_id = #{user_id}
     </delete>
 
   <select id="selectCart" resultType="pojo.Goods">
@@ -91,9 +91,11 @@
     from cart c2
     left join goods g
     on g.id = c2.goods_id
+    where c2.buser_id = #{id}
   </select>
 
   <delete id="deleteCart">
     delete from cart
+    where buser_id = #{id}
   </delete>
 </mapper>

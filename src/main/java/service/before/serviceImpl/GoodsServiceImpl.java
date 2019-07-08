@@ -19,7 +19,12 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public List<Goods> Search(String goodsTypeName) {
+
+
         return goodsMapper.Search(goodsTypeName);
+
+
+
     }
 
     @Override

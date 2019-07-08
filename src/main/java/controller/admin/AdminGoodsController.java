@@ -55,8 +55,10 @@ public class AdminGoodsController {
     public String toAddGoods(Model model)
     {
         model.addAttribute("goods",new Goods());
+
         List<Goodstype> goodsType = adminGoodsService.findGoodsTypeName();
         model.addAttribute("goodsType",goodsType);
+
         return "admin/addGoods";
     }
     /**
@@ -66,7 +68,7 @@ public class AdminGoodsController {
      *    前台编辑页面回显图片的路径要和tomcat的虚拟路径相同。tomcat中需要设置图片的真实路径
      */
     @RequestMapping("/addGoods")
-    public String addGoods(@ModelAttribute("goods") Goods goods,
+    public String addGoods(Goods goods,
                            @RequestParam(value = "updateAct",required = false) String updateAct,
                            MultipartFile logoImage) throws IOException
     {
@@ -88,7 +90,8 @@ public class AdminGoodsController {
         return "redirect:/adminGoods/selectGoods";
     }
     /**
-     * 根据ID查询商品信息 用于回显数据
+     * 修改商品时的回显数据和查询商品详情
+     * 都是根据id进行查询
      */
     @RequestMapping("/selectAGoods")
     public String selectAGoods(@RequestParam("id")int id,

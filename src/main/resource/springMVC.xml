@@ -40,13 +40,13 @@
     <!--配置拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/user/register"/>
-            <mvc:exclude-mapping path="/goods/before"/>
-            <mvc:exclude-mapping path="/user/goodsDetail"/>
-            <mvc:exclude-mapping path="/goods/search"/>
-            <mvc:exclude-mapping path="/selectANotice"/>
-            <mvc:exclude-mapping path="/"/>
+            <mvc:mapping path="/**"/>   <!-- 拦截所有请求 -->
+            <mvc:exclude-mapping path="/user/register"/> <!-- 用户注册 -->
+            <mvc:exclude-mapping path="/goods/before"/>  <!-- 导航栏查询商品 -->
+            <mvc:exclude-mapping path="/user/goodsDetail"/> <!-- 商品详情 -->
+            <mvc:exclude-mapping path="/goods/search"/>  <!-- 模糊查询 -->
+            <mvc:exclude-mapping path="/selectANotice"/> <!-- 查询公告 -->
+            <mvc:exclude-mapping path="/"/>              <!-- 商城主页 -->
             <bean class="interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

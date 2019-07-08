@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GoodsService {
     /**
-     * 根据用户输入的商品类型名 模糊插叙你
+     * 根据用户输入的商品类型名 模糊查询
      */
     List<Goods> Search(String goodsTypeName);
 

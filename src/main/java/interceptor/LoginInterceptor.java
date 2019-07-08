@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
+        String requestURI = request.getRequestURI();//请求资源标识符 URI
         if(requestURI.contains("admin")){
             if (!requestURI.contains("login")){
                 String username = (String) request.getSession().getAttribute("adminname");
@@ -29,6 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
             return true;
         }
+
         return true;
     }
 }

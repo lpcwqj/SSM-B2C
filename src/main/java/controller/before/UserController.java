@@ -18,7 +18,7 @@ import java.util.List;
  * @Date 2019/6/17
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user") //窄化路径，便于区分是哪个角色的访问路径
 public class UserController {
     @Autowired
     private UserService userService;
@@ -33,7 +33,7 @@ public class UserController {
     {
         String email = buser.getBemail();
         String password = buser.getBpwd();
-        //因为是根据邮箱查询的user集合，若集合不存在则说明输入的邮箱不存在
+        //因为是根据邮箱查询的user对象，若对象不存在则说明输入的邮箱不存在
         Buser user = userService.checkUserByEmail(email);
         if (StringUtils.isNullOrEmpty(email)){
             model.addAttribute("msg","邮箱不能为空");
@@ -54,6 +54,7 @@ public class UserController {
         else {
             //存入session域，用于一次会话
             request.getSession().setAttribute("email",buser);
+
             request.getSession().setAttribute("buser",buser.getBemail());
         }
         return "redirect:/";
@@ -93,7 +94,7 @@ public class UserController {
     }
 
     /**
-     * 用户查看关注的商品详情
+     * 用户查看商品详情
      * 接收商品的id
      */
     @RequestMapping("/goodsDetail")

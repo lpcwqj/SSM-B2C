@@ -25,17 +25,17 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteById(int id) {
-        cartMapper.deleteById(id);
+    public void deleteById(int id,int user_id) {
+        cartMapper.deleteById(id,user_id);
     }
 
     @Override
-    public List<Goods> selectCart() {
-        return cartMapper.selectCart();
+    public List<Goods> selectCart(int id) {
+        return cartMapper.selectCart(id);
     }
 
     @Override
-    public void deleteCart() {
-        cartMapper.deleteCart();
+    public void deleteCart(int id) {
+        cartMapper.deleteCart(id);
     }
 }
