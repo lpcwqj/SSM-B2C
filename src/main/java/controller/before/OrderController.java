@@ -40,19 +40,6 @@ public class OrderController {
     }
 
     /**
-     * 点击'去支付'
-     *  接收订单的id
-     * 跳转到支付页面
-     */
-    @RequestMapping("/pay")
-    public String pay(@RequestParam("ordersn") int id,
-                      Model model)
-    {
-        model.addAttribute("ordersn",id);
-        return "before/orderdone";
-    }
-
-    /**
      * 点击确认提交订单后(需要注意三点：1、2、3)
      * 1.添加订单数据(订单状态是未支付0)
      * 2.添加订单详情数据 (根据购物车、订单 两表数据进行添加)
@@ -94,6 +81,19 @@ public class OrderController {
         }
         //删除该订单对应的购物车信息
         orderService.deleteCartById(last_id);
+        return "before/orderdone";
+    }
+
+    /**
+     * 点击'去支付'
+     *  接收订单的id
+     * 跳转到支付页面
+     */
+    @RequestMapping("/pay")
+    public String pay(@RequestParam("ordersn") int id,
+                      Model model)
+    {
+        model.addAttribute("ordersn",id);
         return "before/orderdone";
     }
 

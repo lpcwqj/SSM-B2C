@@ -100,8 +100,10 @@ public class AdminGoodsController {
         //根据id查询商品信息 回显数据
         Goods goodsById = adminGoodsService.findGoodsById(id);
         model.addAttribute("goods",goodsById);
+
         String goodsTypeName = adminGoodsService.findGoodsTypeNameById(id);
         model.addAttribute("goodsTypeName",goodsTypeName);
+
         if ("updateAgoods".equals(act)){
             List<Goodstype> goodsType = adminGoodsService.findGoodsTypeName();
             model.addAttribute("goodsType",goodsType);
